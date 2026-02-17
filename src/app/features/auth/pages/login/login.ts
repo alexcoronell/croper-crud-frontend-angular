@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { form, FormField, required } from '@angular/forms/signals';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthStore } from '@app/core/auth/auth.store';
 import { AuthService } from '@app/core/auth/auth.service';
 import { LoginDto } from '@app/core/dtos/auth-dto';
@@ -8,7 +9,7 @@ import { UserRole } from '@app/domain/enums/user-role';
 
 @Component({
   selector: 'app-login',
-  imports: [FormField],
+  imports: [FormField, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

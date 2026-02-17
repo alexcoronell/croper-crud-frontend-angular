@@ -13,13 +13,13 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = `${environment.apiUrl}/auth`;
+  private readonly apiUrl = environment.apiUrl;
 
   login = (credentials: LoginDto): Observable<LoginResponse | undefined> =>
-    this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
+    this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, credentials);
 
-  register = (userData: RegisterUserDto): Observable<User | undefined> =>
-    this.http.post<User>(`${this.apiUrl}/register`, userData);
+  register = (userData: RegisterUserDto) =>
+    this.http.post<User>(`${this.apiUrl}/user/register`, userData);
 
-  logout = () => this.http.post(`${this.apiUrl}/logout`, {});
+  logout = () => this.http.post(`${this.apiUrl}/auth/logout`, {});
 }

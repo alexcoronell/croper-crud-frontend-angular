@@ -7,8 +7,13 @@ export const routes: Routes = [
       import('./layouts/public-layout/public-layout').then((c) => c.PublicLayout),
     children: [
       {
-        path: 'auth/login',
+        path: 'ingreso',
         loadComponent: () => import('./features/auth/pages/login/login').then((c) => c.Login),
+      },
+      {
+        path: 'registro',
+        loadComponent: () =>
+          import('./features/auth/pages/register/register').then((c) => c.Register),
       },
     ],
   },
