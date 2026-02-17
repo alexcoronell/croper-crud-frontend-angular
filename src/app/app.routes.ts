@@ -54,6 +54,11 @@ export const routes: Routes = [
             (c) => c.ProductForm,
           ),
       },
+      {
+        path: 'usuarios',
+        loadComponent: () =>
+          import('./features/dashboard/pages/users-admin/users-admin').then((c) => c.UsersAdmin),
+      },
     ],
   },
 ];
