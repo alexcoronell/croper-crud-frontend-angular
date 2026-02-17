@@ -1,3 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
 
-@import "tailwindcss";
+@theme {
+  --color-croper-green: #2c6e49;
+  --color-croper-green-dark: #1b4332;
+  --color-croper-sand: #fefae0;
+  --color-croper-text: #1d3557;
+  --color-croper-accent: #ff9f1c;
+
+  --color-croper-gray: #6c757d;
+  --color-croper-light-gray: #f8f9fa;
+
+  --font-sans: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+
+  --radius-croper: 0.5rem;
+}
