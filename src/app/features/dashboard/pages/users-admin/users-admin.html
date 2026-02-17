@@ -1,1 +1,16 @@
-<p>users-admin works!</p>
+<div class="space-y-6">
+  <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-black text-croper-dark">Gestión de Usuarios</h1>
+      <p class="text-croper-gray text-sm">Administra los accesos y roles de la plataforma.</p>
+    </div>
+    <a
+      class="bg-croper-green text-white px-5 py-2 rounded-lg font-bold text-sm shadow-md hover:bg-croper-green/90 transition-all cursor-pointer"
+      routerLink="/admin/usuarios/nuevo-usuario"
+    >
+      + Nuevo Usuario
+    </a>
+  </header>
+
+  <app-user-list />
+</div>

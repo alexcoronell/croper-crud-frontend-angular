@@ -1,0 +1,162 @@
+<div class="max-w-2xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+  <header class="flex items-center justify-between">
+    <h1 class="text-2xl font-black text-croper-dark">
+      {{ userStore.currentUserId() ? 'Editar Usuario' : 'Nuevo Usuario' }}
+    </h1>
+    <button
+      (click)="goBack()"
+      class="text-croper-gray hover:text-croper-dark font-bold text-sm cursor-pointer"
+    >
+      Cancelar
+    </button>
+  </header>
+
+  <form
+    (submit)="onSubmit($event)"
+    class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-6"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Nombre Completo</label
+        >
+        <input
+          type="text"
+          [formField]="userForm.fullName"
+          placeholder="Ej. Juan Pérez"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none transition-all"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Nombre de Usuario</label
+        >
+        <input
+          type="text"
+          [formField]="userForm.username"
+          placeholder="Ej. jperez123"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none transition-all"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Email</label
+        >
+        <input
+          type="email"
+          [formField]="userForm.email"
+          placeholder="juan@ejemplo.com"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none transition-all"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Rol del Sistema</label
+        >
+        <div class="relative">
+          <select
+            [formField]="userForm.role"
+            class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none appearance-none cursor-pointer"
+          >
+            @for (role of roles; track role) {
+              <option [value]="role">{{ roleLabels[role] }}</option>
+            }
+          </select>
+          <div
+            class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-croper-gray"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-1.5">
+        @if (!userStore.currentUserId()) {
+          <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+            >Contraseña Inicial</label
+          >
+          <input
+            type="password"
+            [formField]="userForm.password"
+            placeholder="Min. 6 caracteres"
+            class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none transition-all"
+          />
+        } @else {
+          <div class="h-full flex items-end pb-2">
+            <p class="text-[11px] text-croper-gray italic font-medium">
+              La contraseña no puede editarse desde aquí.
+            </p>
+          </div>
+        }
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Estado de Cuenta</label
+        >
+        <div class="flex items-center gap-3 py-2">
+          <button
+            type="button"
+            (click)="toggleActive()"
+            [class]="userModel().isActive ? 'bg-croper-green' : 'bg-gray-300'"
+            class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
+          >
+            <span
+              [class]="userModel().isActive ? 'translate-x-5' : 'translate-x-0'"
+              class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+            ></span>
+          </button>
+          <span
+            class="text-xs font-bold uppercase tracking-wider"
+            [class]="userModel().isActive ? 'text-croper-green' : 'text-croper-gray'"
+          >
+            {{ userModel().isActive ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="userForm().invalid() || userStore.loading() || isSuccess()"
+      class="w-full bg-croper-green text-white py-4 rounded-xl font-black text-sm shadow-lg hover:opacity-90 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+    >
+      @if (isSuccess()) {
+        <span
+          class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+        ></span>
+        SINCRONIZANDO...
+      } @else {
+        {{ userStore.currentUserId() ? 'ACTUALIZAR USUARIO' : 'CREAR USUARIO' }}
+      }
+    </button>
+  </form>
+
+  @if (errorMessage()) {
+    <div
+      class="p-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 animate-in zoom-in duration-300"
+    >
+      <span class="font-bold">⚠️ {{ errorMessage() }}</span>
+    </div>
+  }
+</div>

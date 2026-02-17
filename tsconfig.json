@@ -21,6 +21,7 @@
       "@domain/*": ["src/app/domain/*"],
       "@enums/*": ["src/app/domain/enums/*"],
       "@models/*": ["src/app/domain/models/*"],
+      "@store/*": ["src/app/core/store/*"],
       "@dtos/*": ["src/app/domain/dtos/*"],
       "@layouts/*": ["src/app/layouts/*"],
       "@auth/*": ["src/app/features/auth/*"],

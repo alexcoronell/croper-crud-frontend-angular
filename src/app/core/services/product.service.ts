@@ -13,13 +13,11 @@ export class ProductService {
 
   private readonly apiUrl: string = `${this.apiBase}/product`;
 
-  getAll = (params: () => { page: number; limit: number }) => {
-    const resource = httpResource<ProductsResponse>(() => ({
+  getAll = (params: () => { page: number; limit: number }) =>
+    httpResource<ProductsResponse>(() => ({
       url: this.apiUrl,
       params: params(),
     }));
-    return resource;
-  };
 
   create = (product: Partial<Product>) => this.http.post<Product>(this.apiUrl, product);
 

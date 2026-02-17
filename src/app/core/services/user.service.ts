@@ -14,14 +14,13 @@ export interface UsersResponse {
 export class UserService {
   private http = inject(HttpClient);
   private readonly apiBase: string = environment.apiUrl;
-  private readonly apiUrl: string = `${this.apiBase}/users`;
+  private readonly apiUrl: string = `${this.apiBase}/user`;
 
-  getAll = (params: () => { page: number; limit: number }) => {
-    return httpResource<UsersResponse>(() => ({
+  getAll = (params: () => { page: number; limit: number }) =>
+    httpResource<UsersResponse>(() => ({
       url: this.apiUrl,
       params: params(),
     }));
-  };
 
   create = (user: Partial<User>) => this.http.post<User>(this.apiUrl, user);
 

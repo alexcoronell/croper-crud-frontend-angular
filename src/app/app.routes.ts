@@ -59,6 +59,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/dashboard/pages/users-admin/users-admin').then((c) => c.UsersAdmin),
       },
+      {
+        path: 'usuarios/nuevo-usuario',
+        loadComponent: () =>
+          import('./features/dashboard/components/user-form/user-form').then((c) => c.UserForm),
+      },
+      {
+        path: 'usuarios/editar-usuario/:id',
+        loadComponent: () =>
+          import('./features/dashboard/components/user-form/user-form').then((c) => c.UserForm),
+      },
     ],
   },
 ];

@@ -11,7 +11,12 @@ export class UserStore {
   readonly page = signal(1);
   readonly limit = signal(10);
   readonly currentUserId = signal<string | null>(null);
-  readonly selectedUser = signal<User | null>(null);
+  readonly loading = signal(false);
+
+  setLoading(value: boolean) {
+    this.loading.set(value);
+  }
+
   readonly resource = this.userService.getAll(() => ({
     page: this.page(),
     limit: this.limit(),
@@ -34,12 +39,6 @@ export class UserStore {
       this.page.update((p) => p - 1);
     }
   }
-
-  selectUser(user: User | null): void {
-    this.selectedUser.set(user);
-    this.currentUserId.set(user?._id ?? null);
-  }
-
   reloadUsers(): void {
     this.resource.reload();
   }
@@ -52,7 +51,7 @@ export class UserStore {
       request$.subscribe({
         next: () => {
           this.resource.reload();
-          this.selectUser(null);
+          this.currentUserId.set(null);
           resolve();
         },
         error: () => {
