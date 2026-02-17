@@ -21,4 +21,20 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'admin',
+    loadComponent: () => import('./layouts/admin-layout/admin-layout').then((c) => c.AdminLayout),
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard/dashboard').then((c) => c.Dashboard),
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];

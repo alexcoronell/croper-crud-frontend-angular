@@ -44,7 +44,7 @@ export class Login {
           const { user } = response;
           this.authStore.setUser(user);
           if (user.role === UserRole.ADMIN) {
-            void this.router.navigate(['/dashboard']);
+            void this.router.navigate(['admin/dashboard']);
           } else {
             void this.router.navigate(['/']);
           }

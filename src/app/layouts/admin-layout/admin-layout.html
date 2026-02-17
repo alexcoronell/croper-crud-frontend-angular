@@ -1,0 +1,123 @@
+<div class="flex h-screen bg-croper-sand/10 overflow-hidden">
+  <aside
+    [class.w-64]="isSidebarOpen"
+    [class.w-20]="!isSidebarOpen"
+    class="bg-white border-r border-gray-200 text-croper-text transition-all duration-300 flex flex-col z-50 shadow-sm"
+  >
+    <div class="h-16 flex items-center px-6 border-b border-gray-100">
+      <span
+        class="font-bold text-xl tracking-tight italic text-croper-green"
+        [class.hidden]="!isSidebarOpen"
+      >
+        Croper Admin
+      </span>
+      <span class="font-bold text-xl text-croper-green mx-auto" [class.hidden]="isSidebarOpen"
+        >C</span
+      >
+    </div>
+
+    <nav class="flex-grow py-6 px-4 space-y-1">
+      <a
+        routerLink="/admin/dashboard"
+        routerLinkActive="bg-croper-green text-white shadow-md"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/80 text-croper-text hover:text-croper-green transition-all group"
+      >
+        <i class="icon-dashboard group-hover:scale-110 transition-transform"></i>
+        <span [class.hidden]="!isSidebarOpen" class="font-medium">Dashboard</span>
+      </a>
+
+      <a
+        routerLink="/admin/inventario"
+        routerLinkActive="bg-croper-green text-white shadow-md"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group"
+      >
+        <span [class.hidden]="!isSidebarOpen" class="font-medium">Inventario</span>
+      </a>
+
+      <a
+        routerLink="/admin/usuarios"
+        routerLinkActive="bg-croper-green text-white shadow-md"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group"
+      >
+        <span [class.hidden]="!isSidebarOpen" class="font-medium">Usuarios</span>
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-gray-100 bg-gray-50/50">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-9 h-9 rounded-full bg-croper-green flex items-center justify-center text-xs font-bold text-white shadow-sm"
+        >
+          {{ authStore.user()?.username?.charAt(0)?.toUpperCase() }}
+        </div>
+        <div [class.hidden]="!isSidebarOpen" class="overflow-hidden text-ellipsis">
+          <p class="text-sm font-bold text-croper-dark truncate">
+            {{ authStore.user()?.username }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="flex-grow flex flex-col overflow-hidden">
+    <header
+      class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-40 shadow-sm"
+    >
+      <div class="flex items-center gap-4">
+        <button
+          (click)="toggleSidebar()"
+          class="p-2 rounded-md text-croper-gray hover:bg-croper-green/10 hover:text-croper-green transition-all active:scale-95"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+
+        <a
+          routerLink="/"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-croper-green/20 text-croper-green text-xs font-bold hover:bg-croper-green hover:text-white transition-all group"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+            />
+          </svg>
+          <span>Ir al Marketplace</span>
+        </a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <span class="text-xs font-bold uppercase tracking-wider text-croper-gray/60 italic">
+          Módulo Administrativo
+        </span>
+      </div>
+    </header>
+
+    <main class="flex-grow overflow-y-auto p-8">
+      <div class="container mx-auto">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+</div>
