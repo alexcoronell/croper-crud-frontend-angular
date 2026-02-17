@@ -2,7 +2,8 @@ import { Component, ChangeDetectionStrategy, inject, signal, effect } from '@ang
 import { form, FormField, required, email, minLength } from '@angular/forms/signals';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserStore } from '@core/store/user.store';
-import { UserRole } from '@app/domain/enums/user-role';
+import { UserRole } from '@domain/enums/user-role';
+import { CreateUserDto } from '@domain/dtos/create-user-dto';
 
 @Component({
   selector: 'app-user-form',
@@ -20,7 +21,7 @@ export class UserForm {
 
   roles = Object.values(UserRole);
 
-  userModel = signal({
+  userModel = signal<CreateUserDto>({
     fullName: '',
     username: '',
     email: '',
@@ -39,12 +40,10 @@ export class UserForm {
     required(schemaPath.username, { message: 'El usuario es requerido' });
     required(schemaPath.email, { message: 'El correo es requerido' });
     email(schemaPath.email, { message: 'Email inválido' });
+
     required(schemaPath.role, { message: 'El rol es requerido' });
 
-    // Usamos el snapshot directamente para que el esquema se cree correctamente
-    // desde el inicio (en edición no hay password requerido)
-    const isEditMode = !!this.route.snapshot.params['id'];
-    if (!isEditMode) {
+    if (!this.userStore.currentUserId()) {
       required(schemaPath.password, { message: 'La contraseña es requerida' });
       minLength(schemaPath.password, 6, { message: 'Mínimo 6 caracteres' });
     }
