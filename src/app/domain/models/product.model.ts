@@ -13,3 +13,10 @@ export interface Product {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface ProductsResponse {
+  data: Product[];
+  total: number;
+  page: number;
+  lastPage: number;
+}

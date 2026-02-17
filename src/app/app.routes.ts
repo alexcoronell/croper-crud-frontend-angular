@@ -35,6 +35,11 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
+      {
+        path: 'inventario',
+        loadComponent: () =>
+          import('./features/dashboard/pages/inventario/inventario').then((c) => c.Inventario),
+      },
     ],
   },
 ];
