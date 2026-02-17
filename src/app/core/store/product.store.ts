@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { Product } from '@models/product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ export class ProductStore {
 
   readonly page = signal(1);
   readonly limit = signal(10);
+  readonly currentProductId = signal<string | null>(null);
 
   readonly resource = this.productService.getAll(() => ({
     page: this.page(),
@@ -36,5 +38,29 @@ export class ProductStore {
 
   reloadProducts(): void {
     this.resource.reload();
+  }
+
+  async saveProduct(productData: Partial<Product>): Promise<void> {
+    const id = this.currentProductId();
+    const request$ = id
+      ? this.productService.update(id, productData)
+      : this.productService.create(productData);
+
+    return new Promise((resolve, reject) => {
+      request$.subscribe({
+        next: () => {
+          this.resource.reload();
+          this.currentProductId.set(null);
+          resolve();
+        },
+        error: (err) => {
+          reject(new Error(err?.error?.message ?? 'Error al procesar el producto'));
+        },
+      });
+    });
+  }
+
+  selectProduct(id?: string | null): void {
+    this.currentProductId.set(id ?? null);
   }
 }

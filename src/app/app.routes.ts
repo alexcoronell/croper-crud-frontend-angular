@@ -40,6 +40,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/dashboard/pages/inventario/inventario').then((c) => c.Inventario),
       },
+      {
+        path: 'inventario/nuevo-producto',
+        loadComponent: () =>
+          import('./features/dashboard/components/product-form/product-form').then(
+            (c) => c.ProductForm,
+          ),
+      },
+      {
+        path: 'inventario/editar-producto/:id',
+        loadComponent: () =>
+          import('./features/dashboard/components/product-form/product-form').then(
+            (c) => c.ProductForm,
+          ),
+      },
     ],
   },
 ];

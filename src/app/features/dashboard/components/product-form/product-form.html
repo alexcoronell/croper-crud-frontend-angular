@@ -1,0 +1,119 @@
+<div class="max-w-2xl mx-auto space-y-6">
+  <header class="flex items-center justify-between">
+    <h1 class="text-2xl font-black text-croper-dark">
+      {{ productStore.currentProductId() ? 'Editar Producto' : 'Nuevo Producto' }}
+    </h1>
+    <button (click)="goBack()" class="text-croper-gray hover:text-croper-dark font-bold text-sm">
+      Cancelar
+    </button>
+  </header>
+
+  <form
+    (submit)="onSubmit($event)"
+    class="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-6"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Nombre</label
+        >
+        <input
+          type="text"
+          [formField]="productForm.name"
+          placeholder="Ej. Semillas de Maíz"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Categoría</label
+        >
+        <input
+          type="text"
+          [formField]="productForm.category"
+          placeholder="Ej. Semillas de Maíz"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Precio</label
+        >
+        <input
+          type="number"
+          [formField]="productForm.price"
+          step="any"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
+        />
+      </div>
+
+      <div class="flex flex-col gap-1.5">
+        <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+          >Stock</label
+        >
+        <input
+          type="number"
+          [formField]="productForm.stock"
+          class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label class="text-[10px] font-black uppercase text-croper-gray tracking-widest"
+        >Descripción</label
+      >
+      <textarea
+        [formField]="productForm.description"
+        rows="4"
+        class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="productForm().invalid()"
+      class="w-full bg-croper-green text-white py-3 rounded-xl font-black text-sm shadow-lg hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer disabled:cursor-not-allowed"
+    >
+      @if (isSuccess()) {
+        <span
+          class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
+        ></span>
+        Sincronizando...
+      } @else {
+        {{ productStore.currentProductId() ? 'ACTUALIZAR' : 'CREAR' }} PRODUCTO
+      }
+    </button>
+  </form>
+  @if (errorMessage()) {
+    <div
+      class="p-4 text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 animate-in zoom-in duration-300"
+    >
+      <span class="font-bold">⚠️ {{ errorMessage() }}</span>
+    </div>
+  }
+
+  @if (isSuccess()) {
+    <div
+      class="p-4 text-sm text-croper-green bg-green-50 border border-croper-green/20 rounded-xl flex items-center gap-3 animate-in bounce-in duration-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <span class="font-bold">¡Producto guardado exitosamente! Redirigiendo...</span>
+    </div>
+  }
+</div>
