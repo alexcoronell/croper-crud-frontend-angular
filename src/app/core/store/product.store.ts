@@ -53,8 +53,22 @@ export class ProductStore {
           this.currentProductId.set(null);
           resolve();
         },
-        error: (err) => {
-          reject(new Error(err?.error?.message ?? 'Error al procesar el producto'));
+        error: () => {
+          reject(new Error('No se pudo guardar el producto'));
+        },
+      });
+    });
+  }
+
+  async deleteProduct(id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.productService.delete(id).subscribe({
+        next: () => {
+          this.resource.reload();
+          resolve();
+        },
+        error: () => {
+          reject(new Error('No se pudo eliminar el producto'));
         },
       });
     });

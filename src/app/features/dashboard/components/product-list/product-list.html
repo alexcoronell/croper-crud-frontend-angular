@@ -81,7 +81,7 @@
                   </span>
                 </div>
               </td>
-              <td class="px-6 py-4 text-center">
+              <td class="px-6 py-4 flex gap-2 items-center justify-center">
                 <a
                   [routerLink]="['/admin/inventario/editar-producto', product._id]"
                   class="text-croper-gray hover:text-croper-green p-2 rounded-full hover:bg-gray-100 transition-all cursor-pointer"
@@ -102,6 +102,25 @@
                     />
                   </svg>
                 </a>
+                <button
+                  (click)="openDeleteModal(product)"
+                  class="text-croper-gray hover:text-red-500 p-1 transition-colors"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </button>
               </td>
             </tr>
           } @empty {
@@ -141,3 +160,48 @@
     </div>
   }
 </div>
+
+@if (showDeleteModal()) {
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-croper-dark/50 backdrop-blur-sm animate-in fade-in duration-300"
+  >
+    <div
+      class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl animate-in zoom-in slide-in-from-top-4 duration-300"
+    >
+      <div class="text-center">
+        <div
+          class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"
+        >
+          <span class="text-red-600 text-xl">⚠️</span>
+        </div>
+        <h3 class="text-lg font-black text-croper-dark mb-2">¿Eliminar producto?</h3>
+        <p class="text-sm text-croper-gray mb-6">
+          Esta acción eliminará a <b>{{ productToDelete()?.name }}</b> permanentemente. Esta
+          operación no se puede deshacer.
+        </p>
+      </div>
+
+      <div class="flex gap-3">
+        <button
+          (click)="closeDeleteModal()"
+          [disabled]="isDeleting()"
+          class="flex-1 px-4 py-2.5 border border-gray-200 text-croper-gray font-bold rounded-xl hover:bg-gray-50 transition-all disabled:opacity-50"
+        >
+          Cancelar
+        </button>
+        <button
+          (click)="confirmDelete()"
+          [disabled]="isDeleting()"
+          class="flex-1 px-4 py-2.5 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 shadow-lg shadow-red-200 transition-all flex justify-center items-center gap-2 disabled:opacity-50"
+        >
+          @if (isDeleting()) {
+            <span
+              class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+            ></span>
+          }
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+}

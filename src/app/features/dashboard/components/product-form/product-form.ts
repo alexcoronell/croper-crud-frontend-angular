@@ -66,8 +66,8 @@ export class ProductForm implements OnInit {
           this.goBack();
         }, 2000);
       })
-      .catch(() => {
-        this.errorMessage.set('Error inesperado al guardar el producto');
+      .catch((error: unknown) => {
+        this.errorMessage.set(error as string);
         this.isSuccess.set(false);
         setTimeout(() => {
           this.errorMessage.set(null);

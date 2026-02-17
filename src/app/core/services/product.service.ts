@@ -25,4 +25,6 @@ export class ProductService {
 
   update = (id: string, product: Partial<Product>) =>
     this.http.patch<Product>(`${this.apiUrl}/${id}`, product);
+
+  delete = (id: string) => this.http.delete(`${this.apiUrl}/${id}`);
 }
