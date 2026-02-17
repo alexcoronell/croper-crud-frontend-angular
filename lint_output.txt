@@ -1,0 +1,20 @@
+
+> croper-crud-frontend-angular@0.0.0 lint
+> eslint .
+
+
+/home/alexcoronell/Development/croper-crud-frontend-angular/src/app/app.ts
+  4:1  warning  The component's `changeDetection` value should be set to `ChangeDetectionStrategy.OnPush`  @angular-eslint/prefer-on-push-component-change-detection
+
+/home/alexcoronell/Development/croper-crud-frontend-angular/src/main.ts
+  5:45  error  Prefer the safe `: unknown` for a `catch` callback variable                                                         @typescript-eslint/use-unknown-in-catch-callback-variable
+  5:53  error  Returning a void expression from an arrow function shorthand is forbidden. Please add braces to the arrow function  @typescript-eslint/no-confusing-void-expression
+
+/home/alexcoronell/Development/croper-crud-frontend-angular/src/server.ts
+  44:82  error  Returning a void expression from an arrow function shorthand is forbidden. Please add braces to the arrow function  @typescript-eslint/no-confusing-void-expression
+  53:36  error  Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator           @typescript-eslint/prefer-nullish-coalescing
+  59:70  error  Invalid type "string | 4000" of template literal expression                                                         @typescript-eslint/restrict-template-expressions
+
+✖ 6 problems (5 errors, 1 warning)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

@@ -5,3 +5,6 @@ coverage
 pnpm-lock.yaml
 *.min.js
 *.min.css
+.agents
+.husky
+AGENTS.md

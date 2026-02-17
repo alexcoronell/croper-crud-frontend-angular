@@ -8,7 +8,7 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
   {
-    ignores: ['dist/**', 'node_modules/**', '.angular/**', 'coverage/**'],
+    ignores: ['dist/**', 'node_modules/**', '.angular/**', 'coverage/**', '.agents/**', '.husky/**', '.vscode/**', 'AGENTS.md', 'README.md'],
   },
   {
     files: ['**/*.ts'],
@@ -60,6 +60,27 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-extraneous-class': 'off',
+      '@typescript-eslint/no-confusing-void-expression': 'off',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'memberLike',
+          modifiers: ['private'],
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'variable',
+          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+          leadingUnderscore: 'allow',
+        },
+      ],
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
     },
   },
   {

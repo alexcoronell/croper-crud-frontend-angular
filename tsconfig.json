@@ -17,7 +17,7 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/app/*"],
-      "@core/*": ["src/core/*"],
+      "@core/*": ["src/app/core/*"],
       "@domain/*": ["src/app/domain/*"],
       "@enums/*": ["src/app/domain/enums/*"],
       "@models/*": ["src/app/domain/models/*"],
