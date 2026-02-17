@@ -23,6 +23,11 @@
           placeholder="Ej. Semillas de Maíz"
           class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
         />
+        @if (productForm.name().touched() && productForm.name().errors()[0]?.message) {
+          <span class="text-xs text-red-500 mt-1 block">{{
+            productForm.name().errors()[0].message
+          }}</span>
+        }
       </div>
 
       <div class="flex flex-col gap-1.5">
@@ -35,6 +40,11 @@
           placeholder="Ej. Semillas de Maíz"
           class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
         />
+        @if (productForm.category().touched() && productForm.category().errors()[0]?.message) {
+          <span class="text-xs text-red-500 mt-1 block">{{
+            productForm.category().errors()[0].message
+          }}</span>
+        }
       </div>
     </div>
 
@@ -49,6 +59,11 @@
           step="any"
           class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
         />
+        @if (productForm.price().touched() && productForm.price().errors()[0]?.message) {
+          <span class="text-xs text-red-500 mt-1 block">{{
+            productForm.price().errors()[0].message
+          }}</span>
+        }
       </div>
 
       <div class="flex flex-col gap-1.5">
@@ -60,6 +75,11 @@
           [formField]="productForm.stock"
           class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
         />
+        @if (productForm.stock().touched() && productForm.stock().errors()[0]?.message) {
+          <span class="text-xs text-red-500 mt-1 block">{{
+            productForm.stock().errors()[0].message
+          }}</span>
+        }
       </div>
     </div>
 
@@ -72,6 +92,11 @@
         rows="4"
         class="px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:border-croper-green outline-none"
       ></textarea>
+      @if (productForm.description().touched() && productForm.description().errors()[0]?.message) {
+        <span class="text-xs text-red-500 mt-1 block">{{
+          productForm.description().errors()[0].message
+        }}</span>
+      }
     </div>
 
     <button
