@@ -23,9 +23,33 @@ export class AuthStore {
   readonly isAuthenticated = computed(() => !!this._user());
   readonly isAdmin = computed(() => this._user()?.role === UserRole.ADMIN);
 
+  constructor() {
+    this.initializeFromStorage();
+  }
+
+  private initializeFromStorage(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        try {
+          this._user.set(JSON.parse(storedUser));
+        } catch {
+          localStorage.removeItem('user');
+        }
+      }
+    }
+  }
+
   // Actions
   setUser(user: User | null): void {
     this._user.set(user);
+    if (isPlatformBrowser(this.platformId)) {
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user));
+      } else {
+        localStorage.removeItem('user');
+      }
+    }
   }
 
   setLoading(isLoading: boolean): void {
@@ -33,13 +57,24 @@ export class AuthStore {
   }
 
   updateUser(partialUser: Partial<User>): void {
-    this._user.update((current) => (current ? { ...current, ...partialUser } : null));
+    this._user.update((current) => {
+      const updated = current ? { ...current, ...partialUser } : null;
+      if (isPlatformBrowser(this.platformId)) {
+        if (updated) {
+          localStorage.setItem('user', JSON.stringify(updated));
+        } else {
+          localStorage.removeItem('user');
+        }
+      }
+      return updated;
+    });
   }
 
   private finalizeLogout(): void {
     this._user.set(null);
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
     }
     this._loading.set(false);
     void this.router.navigate(['/ingreso']);
