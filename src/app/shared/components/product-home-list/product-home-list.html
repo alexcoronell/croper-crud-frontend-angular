@@ -14,8 +14,8 @@
     </div>
   } @else {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-      @for (product of productStore.products(); track product._id) {
-        <app-product-home-card [product]="product" />
+      @for (product of productStore.products(); track product._id; let i = $index) {
+        <app-product-home-card [product]="product" [priority]="i < 4" />
       } @empty {
         <div class="col-span-full py-20 text-center">
           <p class="text-croper-gray font-bold italic text-lg">

@@ -3,9 +3,11 @@
 >
   <div class="aspect-square bg-gray-50 overflow-hidden relative">
     <img
-      [src]="imageUrl()"
+      [ngSrc]="imageUrl()"
       [alt]="product().name"
-      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+      fill
+      [priority]="priority()"
+      class="object-cover group-hover:scale-110 transition-transform duration-500"
     />
   </div>
   <div class="p-5 space-y-2">
