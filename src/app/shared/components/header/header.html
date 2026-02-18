@@ -1,18 +1,39 @@
 <header class="bg-white border-b border-croper-green/10 py-4 shadow-sm">
   <div class="container mx-auto px-4 flex justify-between items-center">
-    <a routerLink="/" class="text-2xl font-bold text-croper-green italic tracking-tighter">
+    <a routerLink="/" class="text-2xl font-black text-croper-green italic tracking-tighter">
       Croper
     </a>
-    <nav class="flex gap-6 text-sm font-semibold text-croper-text">
+
+    <nav class="flex items-center gap-6 text-sm font-semibold text-croper-text">
       <a
         routerLink="/"
         routerLinkActive="text-croper-green"
+        [routerLinkActiveOptions]="{ exact: true }"
         class="hover:text-croper-green transition-colors"
-        >Marketplace</a
       >
-      <a routerLink="/ingreso" routerLinkActive="text-croper-green" class="hover:text-croper-green"
-        >Entrar</a
-      >
+        Marketplace
+      </a>
+
+      @if (authStore.user()) {
+        <div class="flex items-center gap-4 border-l border-gray-100 pl-6">
+          <span class="text-croper-gray font-medium">
+            Hola, <span class="text-croper-dark font-black">{{ authStore.user()?.fullName }}</span>
+          </span>
+          <button
+            (click)="logout()"
+            class="bg-gray-100 text-croper-gray px-4 py-2 rounded-lg hover:bg-red-50 hover:text-red-600 transition-all cursor-pointer font-bold"
+          >
+            Salir
+          </button>
+        </div>
+      } @else {
+        <a
+          routerLink="/ingreso"
+          class="bg-croper-green text-white px-6 py-2 rounded-lg font-bold shadow-md hover:bg-croper-green/90 transition-all"
+        >
+          Ingresar
+        </a>
+      }
     </nav>
   </div>
 </header>
