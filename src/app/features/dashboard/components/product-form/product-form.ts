@@ -1,23 +1,33 @@
-import { Component, ChangeDetectionStrategy, inject, signal, effect } from '@angular/core';
-import { form, FormField, required, min, minLength, maxLength } from '@angular/forms/signals';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CreateProductDto } from '@app/domain/dtos/product-dto';
-import { ProductStore } from '@core/store/product.store';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
+import { form, FormField, maxLength, min, minLength, required } from '@angular/forms/signals';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { ProductStore } from '@core/store/product.store';
+import { CreateProductDto } from '@dtos/product-dto';
+
+/**
+ * Component providing a form for creating and editing product information.
+ * Manages product data, validation, and submission to the backend.
+ */
 @Component({
   selector: 'app-product-form',
-  standalone: true,
   imports: [FormField],
   templateUrl: './product-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductForm {
+  /** Injected Router for navigation. */
   private readonly router = inject(Router);
+  /** Injected ActivatedRoute for accessing route parameters. */
   private readonly route = inject(ActivatedRoute);
+  /** Injected ProductStore for managing product state. */
   readonly productStore = inject(ProductStore);
+  /** Signal holding error messages for the form. */
   errorMessage = signal<string | null>(null);
+  /** Signal indicating the success state of form submission. */
   isSuccess = signal<boolean>(false);
 
+  /** Model signal holding the current product form data as a DTO. */
   productModel = signal<CreateProductDto>({
     name: '',
     description: '',
@@ -26,6 +36,7 @@ export class ProductForm {
     category: '',
   });
 
+  /** Form state and validation rules using Angular Signal Forms. */
   productForm = form(this.productModel, (schemaPath) => {
     required(schemaPath.name, { message: 'El nombre es requerido' });
     minLength(schemaPath.name, 3, { message: 'Mínimo 3 caracteres' });
@@ -53,6 +64,11 @@ export class ProductForm {
     });
   }
 
+  /**
+   * Handles form submission.
+   * Validates the form and triggers product save via ProductStore.
+   * @param event - The submission event.
+   */
   onSubmit(event: Event): void {
     event.preventDefault();
     if (this.productForm().invalid()) return;
@@ -69,6 +85,9 @@ export class ProductForm {
       });
   }
 
+  /**
+   * Clears product selection and navigates back to the inventory list.
+   */
   goBack(): void {
     this.productStore.selectProduct(null);
     void this.router.navigate(['/admin/inventario']);

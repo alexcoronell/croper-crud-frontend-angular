@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ProductHomeCard } from '../product-home-card/product-home-card';
-import { ProductStore } from '@store/product.store';
 
+import { ProductStore } from '@store/product.store';
+import { ProductHomeCard } from '../product-home-card/product-home-card';
+
+/**
+ * Container component that manages a list of product cards for the public view.
+ * Handles pagination events and scroll management.
+ */
 @Component({
   selector: 'app-product-home-list',
   imports: [ProductHomeCard],
@@ -13,19 +18,29 @@ import { ProductStore } from '@store/product.store';
   },
 })
 export class ProductHomeList {
+  /** Injected ProductStore for managing the catalog state. */
   readonly productStore = inject(ProductStore);
 
-  handleNext() {
+  /**
+   * Navigates to the next page of products and scrolls to top.
+   */
+  handleNext(): void {
     this.productStore.nextPage();
     this.scrollToTop();
   }
 
-  handlePrev() {
+  /**
+   * Navigates to the previous page of products and scrolls to top.
+   */
+  handlePrev(): void {
     this.productStore.prevPage();
     this.scrollToTop();
   }
 
-  private scrollToTop() {
+  /**
+   * Smoothly scrolls the window to the top of the viewport.
+   */
+  private scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

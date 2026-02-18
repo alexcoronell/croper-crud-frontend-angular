@@ -1,17 +1,21 @@
-import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+
 import { AuthStore } from '@core/auth/auth.store';
 
+/**
+ * Functional route guard that protects administration-restricted routes.
+ * Verifies both authentication status and admin role membership.
+ * Redirects unauthenticated users to the login page and non-admin users to a 403 Forbidden page.
+ */
 export const adminGuard: CanActivateFn = () => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
-  // Si no está autenticado, redirigir al login
   if (!authStore.isAuthenticated()) {
     return router.parseUrl('/ingreso');
   }
 
-  // Si está autenticado pero no es admin, redirigir al 403
   if (authStore.isAdmin()) {
     return true;
   }

@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
+
 import { adminGuard } from './core/auth/guards/admin-guard';
 
+/**
+ * Main application routing configuration.
+ * Defines public and administrative routes with strategic lazy loading and route protection.
+ */
 export const routes: Routes = [
   {
     path: '',
