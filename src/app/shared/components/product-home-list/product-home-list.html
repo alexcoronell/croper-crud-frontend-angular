@@ -1,0 +1,76 @@
+<div class="space-y-12">
+  <div class="flex justify-between items-end">
+    <div>
+      <h2 class="text-3xl font-black text-croper-dark italic">Productos Destacados</h2>
+      <p class="text-croper-gray text-sm font-medium">Lo mejor del campo directamente para ti.</p>
+    </div>
+  </div>
+
+  @if (productStore.resource.isLoading()) {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <div class="aspect-[3/4] bg-gray-100 animate-pulse rounded-2xl"></div>
+      }
+    </div>
+  } @else {
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+      @for (product of productStore.products(); track product._id) {
+        <app-product-home-card [product]="product" />
+      } @empty {
+        <div class="col-span-full py-20 text-center">
+          <p class="text-croper-gray font-bold italic text-lg">
+            No se encontraron productos disponibles.
+          </p>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="flex items-center justify-center gap-6 pt-8 border-t border-gray-100">
+    <button
+      type="button"
+      (click)="handlePrev()"
+      [disabled]="productStore.page() === 1 || productStore.resource.isLoading()"
+      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Anterior
+    </button>
+
+    <div class="flex items-center gap-3">
+      <span class="text-xs font-black uppercase tracking-widest text-croper-gray">Página</span>
+      <span class="bg-croper-green text-white px-4 py-2 rounded-xl font-black italic shadow-md">
+        {{ productStore.page() }}
+      </span>
+      <span class="text-sm font-bold text-croper-gray">de {{ productStore.totalPages() }}</span>
+    </div>
+
+    <button
+      type="button"
+      (click)="handleNext()"
+      [disabled]="
+        productStore.page() === productStore.totalPages() || productStore.resource.isLoading()
+      "
+      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm"
+    >
+      Siguiente
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>

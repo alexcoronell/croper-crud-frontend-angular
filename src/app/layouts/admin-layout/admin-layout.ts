@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthStore } from '@app/core/auth/auth.store';
 import { CommonModule } from '@angular/common';
@@ -13,9 +13,9 @@ import { CommonModule } from '@angular/common';
 export class AdminLayout {
   public authStore = inject(AuthStore);
 
-  isSidebarOpen = true;
+  isSidebarOpen = signal(true);
 
   toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+    this.isSidebarOpen.update((v: boolean) => !v);
   }
 }

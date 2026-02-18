@@ -1,0 +1,27 @@
+<div
+  class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl transition-all duration-300 group"
+>
+  <div class="aspect-square bg-gray-50 overflow-hidden relative">
+    <img
+      [src]="imageUrl()"
+      [alt]="product().name"
+      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+    />
+  </div>
+  <div class="p-5 space-y-2">
+    <h3 class="font-bold text-croper-dark leading-tight line-clamp-2 h-10 italic">
+      {{ product().name }}
+    </h3>
+    <div class="flex items-baseline gap-2">
+      <span class="text-xl font-black text-croper-green">
+        {{ product().price | currency: 'USD' : 'symbol' : '1.0-0' }}
+      </span>
+      <span class="text-[10px] text-croper-gray font-bold uppercase tracking-widest">COP</span>
+    </div>
+    <button
+      class="w-full py-3 bg-croper-dark text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-croper-green transition-colors"
+    >
+      Ver detalle
+    </button>
+  </div>
+</div>

@@ -1,4 +1,5 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserRole } from '@enums/user-role';
 import { User } from '@models/user.model';
@@ -8,6 +9,7 @@ import { AuthService } from './auth.service';
 export class AuthStore {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
 
   // Private State
   private _user = signal<User | null>(null);
@@ -36,7 +38,9 @@ export class AuthStore {
 
   private finalizeLogout(): void {
     this._user.set(null);
-    localStorage.removeItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+    }
     this._loading.set(false);
     void this.router.navigate(['/ingreso']);
   }
