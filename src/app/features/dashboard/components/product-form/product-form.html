@@ -3,7 +3,10 @@
     <h1 class="text-2xl font-black text-croper-dark">
       {{ productStore.currentProductId() ? 'Editar Producto' : 'Nuevo Producto' }}
     </h1>
-    <button (click)="goBack()" class="text-croper-gray hover:text-croper-dark font-bold text-sm">
+    <button
+      (click)="goBack()"
+      class="text-croper-gray hover:text-croper-dark font-bold text-sm cursor-pointer"
+    >
       Cancelar
     </button>
   </header>

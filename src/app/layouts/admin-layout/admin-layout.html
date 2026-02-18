@@ -1,17 +1,17 @@
 <div class="flex h-screen bg-croper-sand/10 overflow-hidden">
   <aside
-    [class.w-64]="isSidebarOpen"
-    [class.w-20]="!isSidebarOpen"
+    [class.w-64]="isSidebarOpen()"
+    [class.w-20]="!isSidebarOpen()"
     class="bg-white border-r border-gray-200 text-croper-text transition-all duration-300 flex flex-col z-50 shadow-sm"
   >
     <div class="h-16 flex items-center px-6 border-b border-gray-100">
       <span
         class="font-bold text-xl tracking-tight italic text-croper-green"
-        [class.hidden]="!isSidebarOpen"
+        [class.hidden]="!isSidebarOpen()"
       >
         Croper Admin
       </span>
-      <span class="font-bold text-xl text-croper-green mx-auto" [class.hidden]="isSidebarOpen"
+      <span class="font-bold text-xl text-croper-green mx-auto" [class.hidden]="isSidebarOpen()"
         >C</span
       >
     </div>
@@ -21,26 +21,26 @@
         routerLink="/admin/dashboard"
         routerLinkActive="bg-croper-green text-white shadow-md"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/80 text-croper-text hover:text-croper-green transition-all group"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/80 text-croper-text hover:text-croper-green transition-all group cursor-pointer"
       >
         <i class="icon-dashboard group-hover:scale-110 transition-transform"></i>
-        <span [class.hidden]="!isSidebarOpen" class="font-medium">Dashboard</span>
+        <span [class.hidden]="!isSidebarOpen()" class="font-medium">Dashboard</span>
       </a>
 
       <a
         routerLink="/admin/inventario"
         routerLinkActive="bg-croper-green text-white shadow-md"
-        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group cursor-pointer"
       >
-        <span [class.hidden]="!isSidebarOpen" class="font-medium">Inventario</span>
+        <span [class.hidden]="!isSidebarOpen()" class="font-medium">Inventario</span>
       </a>
 
       <a
         routerLink="/admin/usuarios"
         routerLinkActive="bg-croper-green text-white shadow-md"
-        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group"
+        class="flex items-center gap-4 p-3 rounded-lg hover:bg-croper-green/10 text-croper-text hover:text-croper-green transition-all group cursor-pointer"
       >
-        <span [class.hidden]="!isSidebarOpen" class="font-medium">Usuarios</span>
+        <span [class.hidden]="!isSidebarOpen()" class="font-medium">Usuarios</span>
       </a>
     </nav>
 
@@ -51,7 +51,7 @@
         >
           {{ authStore.user()?.username?.charAt(0)?.toUpperCase() }}
         </div>
-        <div [class.hidden]="!isSidebarOpen" class="overflow-hidden text-ellipsis">
+        <div [class.hidden]="!isSidebarOpen()" class="overflow-hidden text-ellipsis">
           <p class="text-sm font-bold text-croper-dark truncate">
             {{ authStore.user()?.username }}
           </p>
@@ -67,7 +67,7 @@
       <div class="flex items-center gap-4">
         <button
           (click)="toggleSidebar()"
-          class="p-2 rounded-md text-croper-gray hover:bg-croper-green/10 hover:text-croper-green transition-all active:scale-95"
+          class="p-2 rounded-md text-croper-gray hover:bg-croper-green/10 hover:text-croper-green transition-all active:scale-95 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@
 
         <a
           routerLink="/"
-          class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-croper-green/20 text-croper-green text-xs font-bold hover:bg-croper-green hover:text-white transition-all group"
+          class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-croper-green/20 text-croper-green text-xs font-bold hover:bg-croper-green hover:text-white transition-all group cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

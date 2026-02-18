@@ -31,7 +31,7 @@
       type="button"
       (click)="handlePrev()"
       [disabled]="productStore.page() === 1 || productStore.resource.isLoading()"
-      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm"
+      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm cursor-pointer"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@
       [disabled]="
         productStore.page() === productStore.totalPages() || productStore.resource.isLoading()
       "
-      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm"
+      class="flex items-center gap-2 px-6 py-3 rounded-xl border border-gray-200 hover:bg-gray-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all font-bold text-sm cursor-pointer"
     >
       Siguiente
       <svg

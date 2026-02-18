@@ -12,7 +12,7 @@
       <h3 class="text-lg font-bold text-red-700">Error al cargar usuarios</h3>
       <button
         (click)="userStore.reloadUsers()"
-        class="mt-4 px-6 py-2 bg-croper-dark text-white rounded-lg font-bold text-sm"
+        class="mt-4 px-6 py-2 bg-croper-dark text-white rounded-lg font-bold text-sm cursor-pointer"
       >
         Reintentar
       </button>
@@ -70,7 +70,7 @@
                 <div class="flex justify-end gap-2">
                   <a
                     [routerLink]="['/admin/usuarios/editar-usuario', user._id]"
-                    class="p-2 text-croper-gray hover:text-croper-green transition-all"
+                    class="p-2 text-croper-gray hover:text-croper-green transition-all cursor-pointer"
                   >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path

@@ -1,6 +1,9 @@
 <header class="bg-white border-b border-croper-green/10 py-4 shadow-sm">
   <div class="container mx-auto px-4 flex justify-between items-center">
-    <a routerLink="/" class="text-2xl font-black text-croper-green italic tracking-tighter">
+    <a
+      routerLink="/"
+      class="text-2xl font-black text-croper-green italic tracking-tighter cursor-pointer"
+    >
       Croper
     </a>
 
@@ -9,7 +12,7 @@
         routerLink="/"
         routerLinkActive="text-croper-green"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="hover:text-croper-green transition-colors"
+        class="hover:text-croper-green transition-colors cursor-pointer"
       >
         Marketplace
       </a>
@@ -18,7 +21,7 @@
         <a
           routerLink="/admin"
           routerLinkActive="text-croper-green"
-          class="hover:text-croper-green transition-colors flex items-center gap-1"
+          class="hover:text-croper-green transition-colors flex items-center gap-1 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +56,7 @@
       } @else {
         <a
           routerLink="/ingreso"
-          class="bg-croper-green text-white px-6 py-2 rounded-lg font-bold shadow-md hover:bg-croper-green/90 transition-all"
+          class="bg-croper-green text-white px-6 py-2 rounded-lg font-bold shadow-md hover:bg-croper-green/90 transition-all cursor-pointer"
         >
           Ingresar
         </a>

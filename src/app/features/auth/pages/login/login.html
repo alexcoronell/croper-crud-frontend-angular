@@ -41,7 +41,7 @@
       <button
         type="submit"
         [disabled]="authStore.loading() || loginForm().invalid()"
-        class="w-full bg-croper-green text-white py-4 rounded-lg font-bold shadow-croper hover:bg-croper-green-dark transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+        class="w-full bg-croper-green text-white py-4 rounded-lg font-bold shadow-croper hover:bg-croper-green-dark transition-all transform active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-2 cursor-pointer"
       >
         @if (authStore.loading()) {
           <span
