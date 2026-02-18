@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy, inject, signal, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal, effect } from '@angular/core';
 import { form, FormField, required, min, minLength, maxLength } from '@angular/forms/signals';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CreateProductDto } from '@app/domain/dtos/product-dto';
 import { ProductStore } from '@core/store/product.store';
 
@@ -12,10 +11,9 @@ import { ProductStore } from '@core/store/product.store';
   templateUrl: './product-form.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductForm implements OnInit {
+export class ProductForm {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private routeSub?: Subscription;
   readonly productStore = inject(ProductStore);
   errorMessage = signal<string | null>(null);
   isSuccess = signal<boolean>(false);
@@ -40,38 +38,34 @@ export class ProductForm implements OnInit {
     maxLength(schemaPath.description, 500, { message: 'Máximo 500 caracteres' });
   });
 
-  ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe((params) => {
-      const id = params['id'] ?? null;
-      this.productStore.selectProduct(id);
-      if (id) {
-        this.productStore.selectProduct(id);
-        const product = this.productStore.products().find((p) => p._id === id);
-        if (product) {
-          this.productModel.set({ ...product });
-        }
+  constructor() {
+    const id = this.route.snapshot.params['id'] ?? null;
+    this.productStore.selectProduct(id);
+
+    effect(() => {
+      const currentId = this.productStore.currentProductId();
+      if (!currentId) return;
+
+      const product = this.productStore.products().find((p) => p._id === currentId);
+      if (product) {
+        this.productModel.set({ ...product });
       }
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
-    event.preventDefault(); //
-
+  onSubmit(event: Event): void {
+    event.preventDefault();
     if (this.productForm().invalid()) return;
-    await this.productStore
+
+    this.productStore
       .saveProduct(this.productModel())
       .then(() => {
         this.isSuccess.set(true);
-        setTimeout(() => {
-          this.goBack();
-        }, 2000);
+        setTimeout(() => this.goBack(), 2000);
       })
       .catch((error: unknown) => {
         this.errorMessage.set(error as string);
         this.isSuccess.set(false);
-        setTimeout(() => {
-          this.errorMessage.set(null);
-        }, 2000);
       });
   }
 
